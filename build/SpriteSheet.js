@@ -1,4 +1,4 @@
-import {createImageBuffer} from "../destiny-alpha-0.0.1.js";
+import {createCanvas} from "../destiny.js";
 
 export default class SpriteSheet {
     constructor(image, width, height) {
@@ -9,9 +9,7 @@ export default class SpriteSheet {
     }
 
     define(name, x, y, width, height) {
-        const buffer = createImageBuffer();
-        buffer.width = width;
-        buffer.height = height;
+        const buffer = createCanvas(width, height);
         buffer.getContext("2d").drawImage(
             this.image,
             x, y,
@@ -29,11 +27,10 @@ export default class SpriteSheet {
 
     draw(name, context, x, y) {
         const buffer = this.tiles.get(name);
-
         context.drawImage(buffer, x, y);
     }
 
     drawTile(name, context, x, y) {
         this.draw(name, context, x*this.width, y*this.height);
-    }
+    } 
 }
