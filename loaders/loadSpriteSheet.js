@@ -1,4 +1,5 @@
 import SpriteSheet from "../build/SpriteSheet.js";
+import {createAnimation} from "../destiny.js";
 import {loadImage} from "./loadImage.js";
 import {loadJSON} from "./loadJSON.js";
 
@@ -32,6 +33,14 @@ export function loadSpriteSheet(name) {
                 });
             }
             
+            if (sheetSpec.animations) {
+                sheetSpec.animations.forEach(animSpec => {
+                    const animation = createAnimation(animSpec.frames, animSpec.frameLength);
+
+                    sprites.defineAnimation(animSpec.name, animation);
+                });
+            }
+
             return sprites;
         });
     });

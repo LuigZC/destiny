@@ -9,6 +9,7 @@ export default class Room {
         this.tiles = new Matrix();
         this.tileCollider = new TileCollider(this.tiles);
         this.gravity = 0;
+        this.totalTime = 0;
     }
 
     update(deltaTime) {
@@ -22,5 +23,7 @@ export default class Room {
 
             entity.velocity.y += this.gravity * deltaTime;
         });
+    
+        this.totalTime += deltaTime;
     }
 }

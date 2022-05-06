@@ -14,6 +14,22 @@ import {loadImage} from "./loaders/loadImage.js";
 import {loadJSON} from "./loaders/loadJSON.js";
 import {loadRoom} from "./loaders/loadRoom.js";
 
+const Sides = {
+    TOP: Symbol("top"),
+    BOTTOM: Symbol("bottom"),
+    LEFT: Symbol("left"),
+    RIGHT: Symbol("right")
+}
+
+function createAnimation(frames, frameLength) {
+    return function resolveFrame(distance) {
+        const frameIndex = Math.floor(distance/frameLength) % frames.length;
+        const frameName = frames[frameIndex];
+
+        return frameName;
+    }
+}
+
 function createCanvas(width, height) {
     const canvas = document.createElement("canvas");
     canvas.width = width;
@@ -53,6 +69,8 @@ export {
     Timer,
     Trait,
     Vector2,
+    Sides,
+    createAnimation,
     createCanvas,
     createGameCanvas,
     crossMultiplication,

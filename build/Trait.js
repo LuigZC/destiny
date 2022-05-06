@@ -3,6 +3,10 @@ export default class Trait {
         this.NAME = name;
     }
 
+    obstruct() {
+
+    }
+
     update() {
         console.warn("Unhandled update call in Trait");
     }

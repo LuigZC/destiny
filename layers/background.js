@@ -8,9 +8,6 @@ export function createBackgroundLayer(room, sprites) {
     let startIndexX, endIndexX, startIndexY, endIndexY;
 
     function redraw(drawXFrom, drawXTo, drawYFrom, drawYTo) {
-        if (drawXFrom === startIndexX && drawXTo === endIndexX &&
-            drawYFrom === startIndexY && drawYTo === endIndexY) return;
-
         startIndexX = drawXFrom;
         endIndexX = drawXTo;
         startIndexY = drawYFrom;
@@ -23,12 +20,22 @@ export function createBackgroundLayer(room, sprites) {
                 for (let y = startIndexY; y <= endIndexY; ++y) {
                     const tile = column[y];
 
-                    sprites.drawTile(
-                        tile.name,
-                        context,
-                        x - startIndexX,
-                        y - startIndexY
-                    );
+                    if (sprites.animations.has(tile.name)) {
+                        sprites.drawAnimation(
+                            tile.name,
+                            context,
+                            x - startIndexX,
+                            y - startIndexY,
+                            room.totalTime
+                        );
+                    } else {
+                        sprites.drawTile(
+                            tile.name,
+                            context,
+                            x - startIndexX,
+                            y - startIndexY
+                        );
+                    }
                 }
             }
         }
