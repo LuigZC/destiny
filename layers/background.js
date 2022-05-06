@@ -1,41 +1,39 @@
+import TileResolver from "../build/TileResolver.js";
 import {createCanvas} from "../destiny.js";
 
-export function createBackgroundLayer(room, sprites) {
-    const tiles = room.tiles;
-    const resolver = room.tileCollider.tiles;
+export function createBackgroundLayer(room, tiles, sprites) {
+    const resolver = new TileResolver(tiles);
     const buffer = createCanvas(272, 240); //TODO
     const context = buffer.getContext("2d");
-    let startIndexX, endIndexX, startIndexY, endIndexY;
 
-    function redraw(drawXFrom, drawXTo, drawYFrom, drawYTo) {
-        startIndexX = drawXFrom;
-        endIndexX = drawXTo;
-        startIndexY = drawYFrom;
-        endIndexY = drawYTo;
+    function redraw(startIndexX, endIndexX, startIndexY, endIndexY) {
+        context.clearRect(0, 0, buffer.width, buffer.height);
 
         for (let x = startIndexX; x <= endIndexX; x++) {
             const column = tiles.grid[x];
 
-            if (column) {
-                for (let y = startIndexY; y <= endIndexY; ++y) {
-                    const tile = column[y];
+            if (!column) continue;
 
-                    if (sprites.animations.has(tile.name)) {
-                        sprites.drawAnimation(
-                            tile.name,
-                            context,
-                            x - startIndexX,
-                            y - startIndexY,
-                            room.totalTime
-                        );
-                    } else {
-                        sprites.drawTile(
-                            tile.name,
-                            context,
-                            x - startIndexX,
-                            y - startIndexY
-                        );
-                    }
+            for (let y = startIndexY; y <= endIndexY; y++) {
+                const tile = column[y];
+                
+                if (!tile) continue; 
+                
+                if (sprites.animations.has(tile.name)) {
+                    sprites.drawAnimation(
+                        tile.name,
+                        context,
+                        x - startIndexX,
+                        y,
+                        room.totalTime
+                    );
+                } else {
+                    sprites.drawTile(
+                        tile.name,
+                        context,
+                        x - startIndexX,
+                        y
+                    );
                 }
             }
         }
