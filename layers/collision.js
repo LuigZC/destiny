@@ -27,8 +27,8 @@ export function createCollisionLayer(room) {
         room.entities.forEach(entity => {
             context.beginPath();
             context.rect(
-                entity.position.x - camera.position.x,
-                entity.position.y - camera.position.y,
+                entity.bounds.left - camera.position.x,
+                entity.bounds.top - camera.position.y,
                 entity.size.x,
                 entity.size.y
             );
