@@ -54,16 +54,12 @@ function expandRange(range) {
 
 function* expandRanges(ranges) {
     for (const range of ranges) {
-        for (const item of expandRange(range)) {
-            yield item;
-        }
+        yield* expandRange(range);
     }
 }
 
-function expandTiles(tiles, patterns) {
-    const expandedTiles = [];
-
-    function walkTiles(tiles, offSetX, offSetY) {
+function* expandTiles(tiles, patterns) {
+    function* walkTiles(tiles, offSetX, offSetY) {
         for (const tile of tiles) {
             for (const {x, y} of expandRanges(tile.ranges)) {
                 const derivedX = x + offSetX;
@@ -72,49 +68,68 @@ function expandTiles(tiles, patterns) {
                 if (tile.pattern) {
                     const tiles = patterns[tile.pattern].tiles;
 
-                    walkTiles(tiles, derivedX, derivedY);
+                    yield* walkTiles(tiles, derivedX, derivedY);
                 } else {
-                    expandedTiles.push({
+                    yield {
                         tile,
                         x: derivedX,
                         y: derivedY
-                    });
+                    };
                 }
             }
         }
     }
 
-    walkTiles(tiles, 0, 0);
-
-    return expandedTiles;
+    yield* walkTiles(tiles, 0, 0);
 }
 
-export function loadRoom(name) {
-    return loadJSON("../../../worlds/"+name+".json").then(roomSpec => { // TODO
-        return Promise.all([
-            roomSpec,
-            loadSpriteSheet(roomSpec.spriteSheet)
-        ]).then(([roomSpec, backgroundSprites]) => {
-            const room = new Room();
+function setupCollision(roomSpec, room) {
+    const mergedTiles = roomSpec.layers.reduce((mergedTiles, layerSpec) => {
+        return mergedTiles.concat(layerSpec.tiles);
+    }, []);
 
-            const mergedTiles = roomSpec.layers.reduce((mergedTiles, layerSpec) => {
-                return mergedTiles.concat(layerSpec.tiles);
-            }, []);
+    const collisionGrid = createCollisionGrid(mergedTiles, roomSpec.patterns);
+    room.setCollisionGrid(collisionGrid);
+}
 
-            const collisionGrid = createCollisionGrid(mergedTiles, roomSpec.patterns);
-            room.setCollisionGrid(collisionGrid);
+function setupBackground(roomSpec, room, backgroundSprites) {
+    roomSpec.layers.forEach(layer => {
+        const backgroundGrid = createBackgroundGrid(layer.tiles, roomSpec.patterns);
 
-            roomSpec.layers.forEach(layer => {
-                const backgroundGrid = createBackgroundGrid(layer.tiles, roomSpec.patterns);
-
-                const backgroundLayer = createBackgroundLayer(room, backgroundGrid, backgroundSprites);
-                room.compositor.layers.push(backgroundLayer);
-            });
-
-            const spriteLayer = createSpriteLayer(room.entities);
-            room.compositor.layers.push(spriteLayer);
-
-            return room;
-        });
+        const backgroundLayer = createBackgroundLayer(room, backgroundGrid, backgroundSprites);
+        room.compositor.layers.push(backgroundLayer);
     });
+}
+
+function setupEntities(roomSpec, room, entityFactory) {
+    roomSpec.entities.forEach(({name, position: [x, y]}) => {
+        const createEntity = entityFactory[name];
+        const entity = createEntity();
+
+        entity.position.set(x, y);
+
+        room.entities.add(entity);
+    });
+
+    const spriteLayer = createSpriteLayer(room.entities);
+    room.compositor.layers.push(spriteLayer);
+}
+
+export function createRoomLoader(entityFactory) {
+    return function loadRoom(name) {
+        return loadJSON("../../../worlds/"+name+".json").then(roomSpec => { // TODO
+            return Promise.all([
+                roomSpec,
+                loadSpriteSheet(roomSpec.spriteSheet)
+            ]).then(([roomSpec, backgroundSprites]) => {
+                const room = new Room();
+
+                setupCollision(roomSpec, room);
+                setupBackground(roomSpec, room, backgroundSprites);
+                setupEntities(roomSpec, room, entityFactory);
+                
+                return room;
+            });
+        });
+    }
 }

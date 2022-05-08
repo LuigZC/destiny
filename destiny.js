@@ -12,7 +12,7 @@ import Room from "./build/Room.js";
 import {loadSpriteSheet} from "./loaders/loadSpriteSheet.js";
 import {loadImage} from "./loaders/loadImage.js";
 import {loadJSON} from "./loaders/loadJSON.js";
-import {loadRoom} from "./loaders/loadRoom.js";
+import {createRoomLoader} from "./loaders/loadRoom.js";
 
 const Sides = {
     TOP: Symbol("top"),
@@ -73,9 +73,9 @@ export {
     createAnimation,
     createCanvas,
     createGameCanvas,
+    createRoomLoader,
     crossMultiplication,
     loadImage,
     loadJSON,
-    loadRoom,
     loadSpriteSheet
 };
