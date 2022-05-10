@@ -3,7 +3,7 @@ import {createBackgroundLayer} from "../layers/background.js";
 import {createSpriteLayer} from "../layers/sprite.js";
 import {loadSpriteSheet} from "./loadSpriteSheet.js";
 import {loadJSON} from "./loadJSON.js";
-import { Matrix } from "../destiny.js";
+import {Matrix} from "../destiny.js";
 
 function createCollisionGrid(tiles, patterns) {
     const grid = new Matrix();

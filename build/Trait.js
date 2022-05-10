@@ -3,11 +3,15 @@ export default class Trait {
         this.NAME = name;
     }
 
-    obstruct() {
-
+    collides(us, them) {
+        
     }
 
-    update() {
-        console.warn("Unhandled update call in Trait");
+    obstruct(entity, side) {
+
+    }    
+
+    update(entity, deltaTime, room) {
+
     }
 }
