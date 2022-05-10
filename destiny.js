@@ -1,10 +1,12 @@
 import SpriteSheet from "./build/SpriteSheet.js";
 import Compositor from "./build/Compositor.js";
 import Keyboard from "./input/Keyboard.js";
+import Physics from "./traits/Physics.js";
 import Vector2 from "./math/Vector2.js";
 import Camera from "./build/Camera.js";
 import Entity from "./build/Entity.js";
 import Matrix from "./math/Matrix.js";
+import Solid from "./traits/Solid.js";
 import Mouse from "./input/Mouse.js";
 import Timer from "./build/Timer.js";
 import Trait from "./build/Trait.js";
@@ -64,7 +66,9 @@ export {
     Keyboard,
     Matrix,
     Mouse,
+    Physics,
     Room,
+    Solid,
     SpriteSheet,
     Timer,
     Trait,

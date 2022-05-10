@@ -25,9 +25,9 @@ export default class TileResolver {
         const tile = this.matrix.get(indexX, indexY);
 
         if (tile) {
-            const x1 = indexX * this.tileSize;
+            const x1 = indexX*this.tileSize;
             const x2 = x1 + this.tileSize;
-            const y1 = indexY * this.tileSize;
+            const y1 = indexY*this.tileSize;
             const y2 = y1 + this.tileSize;
 
             return {
@@ -38,10 +38,10 @@ export default class TileResolver {
         }
     }
 
-    searchByPosition(positionX, positionY) {
+    searchByPosition(x, y) {
         return this.getByIndex(
-            this.toIndex(positionX),
-            this.toIndex(positionY)
+            this.toIndex(x),
+            this.toIndex(y)
         );
     }
 
