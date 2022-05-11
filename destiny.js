@@ -12,9 +12,10 @@ import Timer from "./build/Timer.js";
 import Trait from "./build/Trait.js";
 import Room from "./build/Room.js";
 import {loadSpriteSheet} from "./loaders/loadSpriteSheet.js";
-import {loadImage} from "./loaders/loadImage.js";
-import {loadJSON} from "./loaders/loadJSON.js";
 import {createRoomLoader} from "./loaders/loadRoom.js";
+import {loadImage} from "./loaders/loadImage.js";
+import {loadFont} from "./loaders/loadFont.js";
+import {loadJSON} from "./loaders/loadJSON.js";
 
 const Sides = {
     TOP: Symbol("top"),
@@ -79,6 +80,7 @@ export {
     createGameCanvas,
     createRoomLoader,
     crossMultiplication,
+    loadFont,
     loadImage,
     loadJSON,
     loadSpriteSheet
