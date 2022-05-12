@@ -1,5 +1,6 @@
 import SpriteSheet from "./build/SpriteSheet.js";
 import Compositor from "./build/Compositor.js";
+import AudioBoard from "./build/AudioBoard.js";
 import Keyboard from "./input/Keyboard.js";
 import Physics from "./traits/Physics.js";
 import Vector2 from "./math/Vector2.js";
@@ -12,7 +13,9 @@ import Timer from "./build/Timer.js";
 import Trait from "./build/Trait.js";
 import Room from "./build/Room.js";
 import {loadSpriteSheet} from "./loaders/loadSpriteSheet.js";
+import {createAudioLoader} from "./loaders/loadAudio.js";
 import {createRoomLoader} from "./loaders/loadRoom.js";
+import {loadAudioBoard} from "./loaders/loadAudio.js";
 import {loadImage} from "./loaders/loadImage.js";
 import {loadFont} from "./loaders/loadFont.js";
 import {loadJSON} from "./loaders/loadJSON.js";
@@ -61,6 +64,7 @@ function crossMultiplication(n1, n2, n3) {
 }
 
 export {
+    AudioBoard,
     Camera,
     Compositor,
     Entity,
@@ -76,10 +80,12 @@ export {
     Vector2,
     Sides,
     createAnimation,
+    createAudioLoader,
     createCanvas,
     createGameCanvas,
     createRoomLoader,
     crossMultiplication,
+    loadAudioBoard,
     loadFont,
     loadImage,
     loadJSON,

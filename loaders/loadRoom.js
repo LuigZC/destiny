@@ -120,7 +120,7 @@ export function createRoomLoader(entityFactory) {
         return loadJSON("../../../worlds/"+name+".json").then(roomSpec => { // TODO
             return Promise.all([
                 roomSpec,
-                loadSpriteSheet(roomSpec.spriteSheet)
+                loadSpriteSheet("../../../sprites/"+roomSpec.spriteSheet+".json") // TODO
             ]).then(([roomSpec, backgroundSprites]) => {
                 const room = new Room();
 

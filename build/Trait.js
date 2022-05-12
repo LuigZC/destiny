@@ -1,6 +1,7 @@
 export default class Trait {
     constructor(name) {
         this.NAME = name;
+        this.sounds = new Set();
         this.tasks = [];
     }
 
@@ -19,9 +20,17 @@ export default class Trait {
 
     obstruct(entity, side) {
 
-    }    
+    }
+    
+    playSounds(audioBoard, audioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.play(name, audioContext);
+        });
 
-    update(entity, deltaTime, room) {
+        this.sounds.clear();
+    }
+
+    update(entity, gameContext, room) {
 
     }
 }
