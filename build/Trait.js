@@ -1,6 +1,9 @@
+import EventEmitter from "./EventEmitter.js";
+
 export default class Trait {
     constructor(name) {
         this.NAME = name;
+        this.events = new EventEmitter();
         this.sounds = new Set();
         this.tasks = [];
     }
