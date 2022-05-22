@@ -1,8 +1,11 @@
 import SpriteSheet from "./build/SpriteSheet.js";
 import Compositor from "./build/Compositor.js";
 import AudioBoard from "./build/AudioBoard.js";
+import Velocity from "./traits/Velocity.js";
 import Keyboard from "./input/Keyboard.js";
+import Gravity from "./traits/Gravity.js";
 import Physics from "./traits/Physics.js";
+import Emitter from "./traits/Emitter.js";
 import Vector2 from "./math/Vector2.js";
 import Camera from "./build/Camera.js";
 import Entity from "./build/Entity.js";
@@ -67,7 +70,9 @@ export {
     AudioBoard,
     Camera,
     Compositor,
+    Emitter,
     Entity,
+    Gravity,
     Keyboard,
     Matrix,
     Mouse,
@@ -78,6 +83,7 @@ export {
     Timer,
     Trait,
     Vector2,
+    Velocity,
     Sides,
     createAnimation,
     createAudioLoader,

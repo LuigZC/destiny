@@ -1,16 +1,6 @@
 import AudioBoard from "../build/AudioBoard.js";
 import {loadJSON} from "./loadJSON.js";
 
-// const audioContext = new AudioContext();
-// const audioBoard = new DESTINY.AudioBoard(audioContext);
-// const loadAudio = DESTINY.createAudioLoader(audioContext);
-// loadAudio("../aud/jump_small.wav").then(buffer => {
-//     audioBoard.add("small-jump", buffer);
-// });
-// loadAudio("../aud/stomp.wav").then(buffer => {
-//     audioBoard.add("stomp", buffer);
-// });
-
 export function createAudioLoader(context) {
     return function loadAudio(url) {
         return fetch(url).then(response => {

@@ -108,7 +108,7 @@ function setupEntities(roomSpec, room, entityFactory) {
 
         entity.position.set(x, y);
 
-        room.entities.add(entity);
+        room.addEntity(entity);
     });
 
     const spriteLayer = createSpriteLayer(room.entities);

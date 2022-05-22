@@ -12,6 +12,18 @@ export default class Room {
         this.totalTime = 0;
     }
 
+    addEntity(entity) {
+        this.entities.add(entity);
+    }
+
+    removeEntity(entity) {
+        this.entities.delete(entity);
+    }
+
+    hasEntity(entity) {
+        return this.entities.has(entity);
+    }
+
     setCollisionGrid(matrix) {
         this.tileCollider = new TileCollider(matrix);
     }

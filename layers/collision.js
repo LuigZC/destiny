@@ -3,12 +3,14 @@ function createEntityLayer(entities) {
         context.strokeStyle = "red";
         entities.forEach(entity => {
             context.beginPath();
+            context.translate(.5, .5);
             context.rect(
                 entity.bounds.left - camera.position.x,
                 entity.bounds.top - camera.position.y,
-                entity.size.x,
-                entity.size.y
+                entity.size.x - 1,
+                entity.size.y - 1
             );
+            context.translate(-.5, -.5);
             context.stroke();
         });
     }
@@ -30,12 +32,14 @@ function createTileCadidateLayer(tileCollider) {
         context.strokeStyle = "blue";
         resolvedTiles.forEach(({x, y}) => {
             context.beginPath();
+            context.translate(.5, .5);
             context.rect(
                 x*tileSize - camera.position.x,
                 y*tileSize - camera.position.y,
-                tileSize,
-                tileSize
+                tileSize - 1,
+                tileSize - 1
             );
+            context.translate(-.5, -.5);
             context.stroke();
         });
 

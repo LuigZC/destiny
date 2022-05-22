@@ -3,6 +3,10 @@ export default class Vector2 {
         this.set(x, y);
     }
 
+    copy(vector2) {
+        this.set(vector2.x, vector2.y);
+    }
+
     set(x, y) {
         this.x = x;
         this.y = y;

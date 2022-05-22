@@ -10,6 +10,7 @@ export default class Entity {
         this.offset = new Vector2();
         this.bounds = new BoundingBox(this.position, this.size, this.offset);
         this.audio = new AudioBoard();
+        this.sounds = new Set();
         this.canCollide = true;
         this.lifeTime = 0;
         this.traits = [];
@@ -18,6 +19,10 @@ export default class Entity {
     addTrait(trait) {
         this.traits.push(trait);
         this[trait.NAME] = trait;
+    }
+
+    playSound(name) {
+        this.sounds.add(name);
     }
 
     collides(canditate) {
@@ -30,6 +35,14 @@ export default class Entity {
         this.traits.forEach(trait => {
             trait.obstruct(this, side, match);
         });
+    }
+
+    playSounds(audioBoard, audioContext) {
+        this.sounds.forEach(name => {
+            audioBoard.play(name, audioContext);
+        });
+
+        this.sounds.clear();
     }
 
     draw() {
@@ -45,8 +58,9 @@ export default class Entity {
     update(gameContext, room) {
         this.traits.forEach(trait => {
             trait.update(this, gameContext, room);
-            trait.playSounds(this.audio, gameContext.audioContext);
         });
+
+        this.playSounds(this.audio, gameContext.audioContext);
 
         this.lifeTime += gameContext.deltaTime;
     }
