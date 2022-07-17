@@ -18,8 +18,8 @@ export default class Matrix {
     
     *entries() {
         for (const [x, column] of this.grid.entries()) {
-            for (const [y, tile] of column.entries()) {
-                yield [x, y, tile];
+            for (const [y, value] of column.entries()) {
+                yield [x, y, value];
             }
         }
     }
