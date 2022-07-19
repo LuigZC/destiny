@@ -24,7 +24,7 @@ export function createBackgroundLayer(room, tiles, sprites) {
                         tile.name,
                         context,
                         x - startIndexX,
-                        y,
+                        y - startIndexY,
                         room.totalTime
                     );
                 } else {
@@ -32,7 +32,7 @@ export function createBackgroundLayer(room, tiles, sprites) {
                         tile.name,
                         context,
                         x - startIndexX,
-                        y
+                        y - startIndexY
                     );
                 }
             }
